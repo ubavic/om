@@ -19,15 +19,17 @@ const Value = ({ resistor, numberOfBands }: ValueProps) => {
 	let prefix: string = ''
 	const tc = numberOfBands == 6 ? <>{getValue(resistor.tc, temperatureCoefficientValues)}ppm/°C</> : ''
 
-	if (value >= 1000 && value < 1000000) {
-		value /= 1000
-		prefix = 'k'
-	} else if (value < 1000000000) {
-		value /= 1000000
-		prefix = 'M'
-	} else {
-		value /= 1000000000
-		prefix = 'G'
+	if (value >= 1000) {
+		if (value < 1000000) {
+			value /= 1000
+			prefix = 'k'
+		} else if (value < 1000000000) {
+			value /= 1000000
+			prefix = 'M'
+		} else {
+			value /= 1000000000
+			prefix = 'G'
+		}
 	}
 
 	const nw = { whiteSpace: 'nowrap' }
