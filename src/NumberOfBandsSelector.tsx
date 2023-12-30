@@ -19,16 +19,16 @@ const NumberOfBandsSelector = ({ numberOfBands, setNumberOfBands }: BandsSelecto
 	return (
 		<div id="bandsSelector">
 			<div onClick={set(3)} className={selected(3)}>
-				3 <span className="marks">oznake</span>
+				3
 			</div>
 			<div onClick={set(4)} className={selected(4)}>
-				4 <span className="marks">oznake</span>
+				4
 			</div>
 			<div onClick={set(5)} className={selected(5)}>
-				5 <span className="marks">oznaka</span>
+				5
 			</div>
 			<div onClick={set(6)} className={selected(6)}>
-				6 <span className="marks">oznaka</span>
+				6
 			</div>
 		</div>
 	)
