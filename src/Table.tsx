@@ -37,7 +37,7 @@ const Table = ({ setResistor, numberOfBands, resistor }: TableProps) => {
 			<ValuesColumn values={digitValues} callback={setDigit1} selected={resistor.digit1} />
 			<ValuesColumn values={digitValues} callback={setDigit2} selected={resistor.digit2} />
 			{numberOfBands >= 5 ? <ValuesColumn values={digitValues} callback={setDigit3} selected={resistor.digit3} /> : <></>}
-			<ValuesColumn values={multiplierValues} superscript callback={setMultiplier} selected={resistor.multiplier} />
+			<ValuesColumn values={multiplierValues} superscript callback={setMultiplier} selected={resistor.multiplier} columnClassName='multiplierColumn' />
 			{numberOfBands >= 4 ? <ValuesColumn values={toleranceValues} callback={setTolerance} selected={resistor.tolerance} /> : <></>}
 			{numberOfBands == 6 ? <ValuesColumn values={temperatureCoefficientValues} callback={setTemperatureCoefficient} selected={resistor.tc} /> : <></>}
 		</div>
@@ -49,11 +49,12 @@ type ValuesColumnProps<T> = {
 	superscript?: boolean
 	callback: (c: T) => () => void
 	selected: T
+	columnClassName?: string
 }
 
-const ValuesColumn = <T extends string>({ values, superscript, callback, selected }: ValuesColumnProps<T>) => {
+const ValuesColumn = <T extends string>({ values, superscript, callback, selected, columnClassName }: ValuesColumnProps<T>) => {
 	return (
-		<div className="valuesColumn">
+		<div className={'valuesColumn' + ' ' + (columnClassName ?? '')}>
 			{values.map((v, i) =>
 				v !== null ? (
 					<div className={v[0] + ' valueCell ' + (selected === v[0] ? 'selected' : '')} key={i} onClick={callback(v[0])}>

@@ -113,7 +113,7 @@ rect {
 	border-top-left-radius: 3px;
 }
 
-.columns :first-child :last-child {
+.columns :first-child :last-child, .multiplierColumn :last-child {
 	border-bottom-left-radius: 3px;
 }
 

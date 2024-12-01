@@ -11,8 +11,6 @@ const digitValues: ([Digit, number] | null)[] = [
 	['Violet', 7],
 	['Grey', 8],
 	['White', 9],
-	null,
-	null,
 ]
 
 const multiplierValues: ([Multiplier, number] | null)[] = [
