@@ -15,7 +15,8 @@ const Value = ({ resistor, numberOfBands }: ValueProps) => {
 
 	const tolerance = numberOfBands == 3 ? 20 : getValue(resistor.tolerance, toleranceValues)
 
-	let value = digits * 10 ** getValue(resistor.multiplier, multiplierValues)
+	const val = digits * 10 ** getValue(resistor.multiplier, multiplierValues)
+	let value = val
 	let prefix: string = ''
 	const tc = numberOfBands == 6 ? <>{getValue(resistor.tc, temperatureCoefficientValues)}ppm/°C</> : ''
 
@@ -36,14 +37,25 @@ const Value = ({ resistor, numberOfBands }: ValueProps) => {
 
 	value = parseFloat(value.toFixed(2))
 
+	let leftEnd = (1 - tolerance / 100) * val
+	leftEnd = parseFloat(leftEnd.toFixed(0))
+
+	let rightEnd = (1 + tolerance / 100) * val
+	rightEnd = parseFloat(rightEnd.toFixed(0))
+
 	return (
-		<div id="value">
-			<span style={nw}>
-				{value}
-				{prefix}Ω
-			</span>{' '}
-			<span style={nw}>± {tolerance}%</span> <span style={nw}>{tc}</span>
-		</div>
+		<>
+			<div id="value">
+				<span style={nw}>
+					{value}
+					{prefix}Ω
+				</span>{' '}
+				<span style={nw}>± {tolerance}%</span> <span style={nw}>{tc}</span>
+			</div>
+			<div id="valueSpan">
+				{leftEnd.toLocaleString('en-US')}Ω ≤ R ≤ {rightEnd.toLocaleString('en-US')}Ω
+			</div>
+		</>
 	)
 }
 
