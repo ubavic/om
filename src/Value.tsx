@@ -13,7 +13,7 @@ const Value = ({ resistor, numberOfBands }: ValueProps) => {
 		digits = 10 * digits + getValue(resistor.digit3, digitValues)
 	}
 
-	const tolerance = getValue(resistor.tolerance, toleranceValues)
+	const tolerance = numberOfBands == 3 ? 20 : getValue(resistor.tolerance, toleranceValues)
 
 	let value = digits * 10 ** getValue(resistor.multiplier, multiplierValues)
 	let prefix: string = ''
