@@ -1,12 +1,14 @@
-import { NumberOfBands, Resistor } from './types'
-import { digitValues, multiplierValues, temperatureCoefficientValues, toleranceValues } from './data'
+import { Inductor, NumberOfBands, Resistor } from './types'
+import { digitValues, inductorMultiplierValues, inductorToleranceValues, multiplierValues, temperatureCoefficientValues, toleranceValues } from './data'
 
-type ValueProps = {
+const nw = { whiteSpace: 'nowrap' }
+
+type ResistorValueProps = {
 	resistor: Resistor
 	numberOfBands: NumberOfBands
 }
 
-const Value = ({ resistor, numberOfBands }: ValueProps) => {
+const ResistorValue = ({ resistor, numberOfBands }: ResistorValueProps) => {
 	let digits = 10 * getValue(resistor.digit1, digitValues) + getValue(resistor.digit2, digitValues)
 
 	if (numberOfBands >= 5) {
@@ -15,33 +17,12 @@ const Value = ({ resistor, numberOfBands }: ValueProps) => {
 
 	const tolerance = numberOfBands == 3 ? 20 : getValue(resistor.tolerance, toleranceValues)
 
-	const val = digits * 10 ** getValue(resistor.multiplier, multiplierValues)
-	let value = val
-	let prefix: string = ''
+	const ohmValue = digits * 10 ** getValue(resistor.multiplier, multiplierValues)
 	const tc = numberOfBands == 6 ? <>{getValue(resistor.tc, temperatureCoefficientValues)}ppm/°C</> : ''
 
-	if (value >= 1000) {
-		if (value < 1000000) {
-			value /= 1000
-			prefix = 'k'
-		} else if (value < 1000000000) {
-			value /= 1000000
-			prefix = 'M'
-		} else {
-			value /= 1000000000
-			prefix = 'G'
-		}
-	}
+	const [value, prefix] = getPrefix(ohmValue)
 
-	const nw = { whiteSpace: 'nowrap' }
-
-	value = parseFloat(value.toFixed(2))
-
-	let leftEnd = (1 - tolerance / 100) * val
-	leftEnd = parseFloat(leftEnd.toFixed(0))
-
-	let rightEnd = (1 + tolerance / 100) * val
-	rightEnd = parseFloat(rightEnd.toFixed(0))
+	const [leftEnd, rightEnd] = getInterval(ohmValue, tolerance)
 
 	return (
 		<>
@@ -53,7 +34,36 @@ const Value = ({ resistor, numberOfBands }: ValueProps) => {
 				<span style={nw}>± {tolerance}%</span> <span style={nw}>{tc}</span>
 			</div>
 			<div id="valueSpan">
-				{leftEnd.toLocaleString('en-US')}Ω ≤ R ≤ {rightEnd.toLocaleString('en-US')}Ω
+				{leftEnd}Ω ≤ R ≤ {rightEnd}Ω
+			</div>
+		</>
+	)
+}
+
+type InductorValueProps = {
+	inductor: Inductor
+}
+
+const InductorValue = ({ inductor }: InductorValueProps) => {
+	const digits = 10 * getValue(inductor.digit1, digitValues) + getValue(inductor.digit2, digitValues)
+	const tolerance = getValue(inductor.tolerance, inductorToleranceValues)
+
+	const uHenryValue = digits * 10 ** getValue(inductor.multiplier, inductorMultiplierValues)
+	const [value, prefix] = getPrefix(uHenryValue / 1000000)
+
+	const [leftEnd, rightEnd] = getInterval(uHenryValue, tolerance)
+
+	return (
+		<>
+			<div id="value">
+				<span style={nw}>
+					{value}
+					{prefix}H
+				</span>{' '}
+				<span style={nw}>± {tolerance}%</span>
+			</div>
+			<div id="valueSpan">
+				{leftEnd}μH ≤ L ≤ {rightEnd}μH
 			</div>
 		</>
 	)
@@ -69,4 +79,50 @@ const getValue = <T,>(value: T, values: ([T, number] | null)[]): number => {
 	return 0
 }
 
-export { Value }
+const getPrefix = (value: number): [number, string] => {
+	let prefix = ''
+
+	if (value < 1) {
+		if (value < 0.001) {
+			value *= 1000000
+			prefix = 'μ'
+		} else {
+			value *= 1000
+			prefix = 'm'
+		}
+	} else if (value >= 1000) {
+		if (value < 1000000) {
+			value /= 1000
+			prefix = 'k'
+		} else if (value < 1000000000) {
+			value /= 1000000
+			prefix = 'M'
+		} else {
+			value /= 1000000000
+			prefix = 'G'
+		}
+	}
+
+	value = parseFloat(value.toFixed(2))
+
+	return [value, prefix]
+}
+
+const getInterval = (value: number, tolerance: number): [string, string] => {
+	let fractionDigits = 0
+	if (value < 1) {
+		fractionDigits = 4
+	} else if (value < 10) {
+		fractionDigits = 2
+	}
+
+	let leftEnd = (1 - tolerance / 100) * value
+	leftEnd = parseFloat(leftEnd.toFixed(fractionDigits))
+
+	let rightEnd = (1 + tolerance / 100) * value
+	rightEnd = parseFloat(rightEnd.toFixed(fractionDigits))
+
+	return [leftEnd.toLocaleString('en-US'), rightEnd.toLocaleString('en-US')]
+}
+
+export { ResistorValue, InductorValue }

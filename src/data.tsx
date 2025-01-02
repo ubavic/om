@@ -1,4 +1,4 @@
-import { Digit, Multiplier, TemperatureCoefficient, Tolerance } from './types'
+import { Digit, InductorMultiplier, InductorTolerance, ResistorMultiplier, ResistorTolerance, TemperatureCoefficient } from './types'
 
 const digitValues: ([Digit, number] | null)[] = [
 	['Black', 0],
@@ -13,7 +13,7 @@ const digitValues: ([Digit, number] | null)[] = [
 	['White', 9],
 ]
 
-const multiplierValues: ([Multiplier, number] | null)[] = [
+const multiplierValues: ([ResistorMultiplier, number] | null)[] = [
 	['Black', 0],
 	['Brown', 1],
 	['Red', 2],
@@ -28,7 +28,7 @@ const multiplierValues: ([Multiplier, number] | null)[] = [
 	['Silver', -2],
 ]
 
-const toleranceValues: ([Tolerance, number] | null)[] = [
+const toleranceValues: ([ResistorTolerance, number] | null)[] = [
 	null,
 	['Brown', 1],
 	['Red', 2],
@@ -58,4 +58,34 @@ const temperatureCoefficientValues: ([TemperatureCoefficient, number] | null)[] 
 	null,
 ]
 
-export { digitValues, multiplierValues, temperatureCoefficientValues, toleranceValues }
+const inductorMultiplierValues: ([InductorMultiplier, number] | null)[] = [
+	['Black', 0],
+	['Brown', 1],
+	['Red', 2],
+	['Orange', 3],
+	['Yellow', 4],
+	['Green', 5],
+	['Blue', 6],
+	null,
+	null,
+	null,
+	['Gold', -1],
+	['Silver', -2],
+]
+
+const inductorToleranceValues: ([InductorTolerance, number] | null)[] = [
+	['Black', 20],
+	['Brown', 1],
+	['Red', 2],
+	['Orange', 3],
+	['Yellow', 4],
+	null,
+	null,
+	null,
+	null,
+	null,
+	['Gold', 5],
+	['Silver', 10],
+]
+
+export { digitValues, multiplierValues, inductorMultiplierValues, temperatureCoefficientValues, toleranceValues, inductorToleranceValues }

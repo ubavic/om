@@ -43,19 +43,31 @@ a:visited {
 	user-select: none;
 }
 
-#bandsSelector > div {
-	padding: 0.2rem;
+#modeSelector {
+	display: flex;
+	flex-direction: row;
+	gap: 3rem;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 1.2rem;
+	user-select: none;
+	margin-bottom: 1rem;
+}
+
+.option {
+	padding: 0.4rem 0.6rem 0.2rem;
 	cursor: pointer;
 	user-select: none;
+	border-radius: 3px;
 }
 
-#bandsSelector > div:hover {
+.option:hover {
 	text-decoration: underline;
 }
 
-#bandsSelector > .selectedBands {
-	text-decoration: underline;
-	color: #000;
+.selectedOption {
+	background-color: var(--foreground);
+	color: var(--background);
 }
 
 #resistorContainer {
@@ -71,6 +83,7 @@ rect {
 	font-size: 1.7rem;
 	text-align: center;
 	margin: 0.5rem 0 0;
+	line-height: 130%;
 }
 
 #valueSpan {
