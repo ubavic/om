@@ -259,6 +259,14 @@ const getVoltageRatingsValues = (type: CapacitorType): ([CapacitorVoltageRating,
 	return voltageRatings
 }
 
+const getCapacitorToleranceValues = (capacitance: number): ([CapacitorTolerance, number] | null)[] => {
+	if (capacitance < 10) {
+		return capacitorSmallToleranceValues
+	}
+
+	return capacitorToleranceValues
+}
+
 export {
 	digitValues,
 	multiplierValues,
@@ -276,4 +284,5 @@ export {
 	capacitorVoltageRatingMValues,
 	capacitorVoltageRatingNValues,
 	getVoltageRatingsValues,
+	getCapacitorToleranceValues,
 }

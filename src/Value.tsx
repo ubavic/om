@@ -1,8 +1,8 @@
 import { Capacitor, Inductor, NumberOfBands, Resistor } from './types'
 import {
 	capacitorMultiplierValues,
-	capacitorToleranceValues,
 	digitValues,
+	getCapacitorToleranceValues,
 	getVoltageRatingsValues,
 	inductorMultiplierValues,
 	inductorToleranceValues,
@@ -87,9 +87,11 @@ type CapacitorValueProps = {
 
 const CapacitorValue = ({ capacitor, numberOfBands }: CapacitorValueProps) => {
 	const digits = 10 * getValue(capacitor.digit1, digitValues) + getValue(capacitor.digit2, digitValues)
-	const tolerance = getValue(capacitor.tolerance, capacitorToleranceValues)
-
 	const pFaradValue = digits * 10 ** getValue(capacitor.multiplier, capacitorMultiplierValues)
+
+	const toleranceValues = getCapacitorToleranceValues(pFaradValue)
+
+	const tolerance = getValue(capacitor.tolerance, toleranceValues)
 	const [value, prefix] = getPrefix(pFaradValue / 1000000000000)
 
 	const [leftEnd, rightEnd] = getInterval(pFaradValue, tolerance)

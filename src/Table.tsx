@@ -15,8 +15,8 @@ import {
 } from './types'
 import {
 	capacitorMultiplierValues,
-	capacitorToleranceValues,
 	digitValues,
+	getCapacitorToleranceValues,
 	getVoltageRatingsValues,
 	inductorMultiplierValues,
 	inductorToleranceValues,
@@ -24,6 +24,7 @@ import {
 	temperatureCoefficientValues,
 	toleranceValues,
 } from './data'
+import { getValue } from './math'
 
 type ResistorTableProps = {
 	numberOfBands: NumberOfBands
@@ -127,6 +128,10 @@ const CapacitorTable = ({ setCapacitor, capacitor, numberOfBands }: CapacitorTab
 		setCapacitor({ ...capacitor, voltageRating: c })
 	}
 
+	const digits = 10 * getValue(capacitor.digit1, digitValues) + getValue(capacitor.digit2, digitValues)
+	const pFaradValue = digits * 10 ** getValue(capacitor.multiplier, capacitorMultiplierValues)
+	const toleranceValues = getCapacitorToleranceValues(pFaradValue)
+
 	const voltageRatings = getVoltageRatingsValues(capacitor.type)
 
 	return (
@@ -134,7 +139,7 @@ const CapacitorTable = ({ setCapacitor, capacitor, numberOfBands }: CapacitorTab
 			<ValuesColumn values={digitValues} callback={setDigit1} selected={capacitor.digit1} />
 			<ValuesColumn values={digitValues} callback={setDigit2} selected={capacitor.digit2} />
 			<ValuesColumn values={capacitorMultiplierValues} superscript callback={setMultiplier} selected={capacitor.multiplier} columnClassName="multiplierColumn" />
-			{numberOfBands >= 5 ? <ValuesColumn values={capacitorToleranceValues} callback={setTolerance} selected={capacitor.tolerance} /> : <></>}
+			{numberOfBands >= 5 ? <ValuesColumn values={toleranceValues} callback={setTolerance} selected={capacitor.tolerance} /> : <></>}
 			{numberOfBands >= 4 ? <ValuesColumn values={voltageRatings} callback={setVoltageRating} selected={capacitor.voltageRating} /> : <></>}
 		</div>
 	)
