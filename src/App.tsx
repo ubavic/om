@@ -176,13 +176,18 @@ const App = () => {
 				<>
 					<ResistorPicture resistor={component as Resistor} numberOfBands={numberOfBands} />
 					<ResistorValue resistor={component as Resistor} numberOfBands={numberOfBands} />
-					<ResistorTable resistor={component as Resistor} numberOfBands={numberOfBands} setResistor={setComponent as React.Dispatch<React.SetStateAction<Resistor>>} />
+					<ResistorTable
+						language={language}
+						resistor={component as Resistor}
+						numberOfBands={numberOfBands}
+						setResistor={setComponent as React.Dispatch<React.SetStateAction<Resistor>>}
+					/>
 				</>
 			) : mode == 'Inductor' ? (
 				<>
 					<InductorPicture inductor={component as Inductor} numberOfBands={numberOfBands} />
 					<InductorValue inductor={component as Inductor} />
-					<InductorTable inductor={component as Inductor} setInductor={setComponent as React.Dispatch<React.SetStateAction<Inductor>>} />
+					<InductorTable language={language} inductor={component as Inductor} setInductor={setComponent as React.Dispatch<React.SetStateAction<Inductor>>} />
 				</>
 			) : (
 				<>
@@ -190,6 +195,7 @@ const App = () => {
 					<CapacitorPicture capacitor={component as Capacitor} numberOfBands={numberOfBands} />
 					<CapacitorValue capacitor={component as Capacitor} numberOfBands={numberOfBands} />
 					<CapacitorTable
+						language={language}
 						capacitor={component as Capacitor}
 						numberOfBands={numberOfBands}
 						setCapacitor={setComponent as React.Dispatch<React.SetStateAction<Capacitor>>}

@@ -13,6 +13,7 @@ import {
 	ResistorTolerance,
 	TemperatureCoefficient,
 } from './types'
+import { Language, translate } from './lang'
 import {
 	capacitorMultiplierValues,
 	digitValues,
@@ -30,9 +31,10 @@ type ResistorTableProps = {
 	numberOfBands: NumberOfBands
 	setResistor: React.Dispatch<React.SetStateAction<Resistor>>
 	resistor: Resistor
+	language: Language
 }
 
-const ResistorTable = ({ setResistor, numberOfBands, resistor }: ResistorTableProps) => {
+const ResistorTable = ({ setResistor, numberOfBands, resistor, language }: ResistorTableProps) => {
 	const setDigit1 = (c: Digit) => () => {
 		setResistor({ ...resistor, digit1: c })
 	}
@@ -59,12 +61,28 @@ const ResistorTable = ({ setResistor, numberOfBands, resistor }: ResistorTablePr
 
 	return (
 		<div className="columns">
-			<ValuesColumn values={digitValues} callback={setDigit1} selected={resistor.digit1} />
-			<ValuesColumn values={digitValues} callback={setDigit2} selected={resistor.digit2} />
-			{numberOfBands >= 5 ? <ValuesColumn values={digitValues} callback={setDigit3} selected={resistor.digit3} /> : <></>}
-			<ValuesColumn values={multiplierValues} superscript callback={setMultiplier} selected={resistor.multiplier} columnClassName="multiplierColumn" />
-			{numberOfBands >= 4 ? <ValuesColumn values={toleranceValues} callback={setTolerance} selected={resistor.tolerance} /> : <></>}
-			{numberOfBands == 6 ? <ValuesColumn values={temperatureCoefficientValues} callback={setTemperatureCoefficient} selected={resistor.tc} /> : <></>}
+			<ValuesColumn title={translate(language, 'digit1')} values={digitValues} callback={setDigit1} selected={resistor.digit1} />
+			<ValuesColumn title={translate(language, 'digit2')} values={digitValues} callback={setDigit2} selected={resistor.digit2} />
+			{numberOfBands >= 5 ? <ValuesColumn title={translate(language, 'digit3')} values={digitValues} callback={setDigit3} selected={resistor.digit3} /> : <></>}
+			<ValuesColumn
+				title={translate(language, 'multiplier')}
+				values={multiplierValues}
+				superscript
+				callback={setMultiplier}
+				selected={resistor.multiplier}
+				columnClassName="multiplierColumn"
+			/>
+			{numberOfBands >= 4 ? <ValuesColumn title={translate(language, 'tolerance')} values={toleranceValues} callback={setTolerance} selected={resistor.tolerance} /> : <></>}
+			{numberOfBands == 6 ? (
+				<ValuesColumn
+					title={translate(language, 'temperatureCoefficient')}
+					values={temperatureCoefficientValues}
+					callback={setTemperatureCoefficient}
+					selected={resistor.tc}
+				/>
+			) : (
+				<></>
+			)}
 		</div>
 	)
 }
@@ -72,9 +90,10 @@ const ResistorTable = ({ setResistor, numberOfBands, resistor }: ResistorTablePr
 type InductorTableProps = {
 	setInductor: React.Dispatch<React.SetStateAction<Inductor>>
 	inductor: Inductor
+	language: Language
 }
 
-const InductorTable = ({ setInductor, inductor }: InductorTableProps) => {
+const InductorTable = ({ setInductor, inductor, language }: InductorTableProps) => {
 	const setDigit1 = (c: Digit) => () => {
 		setInductor({ ...inductor, digit1: c })
 	}
@@ -93,10 +112,17 @@ const InductorTable = ({ setInductor, inductor }: InductorTableProps) => {
 
 	return (
 		<div className="columns">
-			<ValuesColumn values={digitValues} callback={setDigit1} selected={inductor.digit1} />
-			<ValuesColumn values={digitValues} callback={setDigit2} selected={inductor.digit2} />
-			<ValuesColumn values={inductorMultiplierValues} superscript callback={setMultiplier} selected={inductor.multiplier} columnClassName="multiplierColumn" />
-			<ValuesColumn values={inductorToleranceValues} callback={setTolerance} selected={inductor.tolerance} />
+			<ValuesColumn title={translate(language, 'digit1')} values={digitValues} callback={setDigit1} selected={inductor.digit1} />
+			<ValuesColumn title={translate(language, 'digit2')} values={digitValues} callback={setDigit2} selected={inductor.digit2} />
+			<ValuesColumn
+				title={translate(language, 'multiplier')}
+				values={inductorMultiplierValues}
+				superscript
+				callback={setMultiplier}
+				selected={inductor.multiplier}
+				columnClassName="multiplierColumn"
+			/>
+			<ValuesColumn title={translate(language, 'tolerance')} values={inductorToleranceValues} callback={setTolerance} selected={inductor.tolerance} />
 		</div>
 	)
 }
@@ -105,9 +131,10 @@ type CapacitorTableProps = {
 	setCapacitor: React.Dispatch<React.SetStateAction<Capacitor>>
 	capacitor: Capacitor
 	numberOfBands: NumberOfBands
+	language: Language
 }
 
-const CapacitorTable = ({ setCapacitor, capacitor, numberOfBands }: CapacitorTableProps) => {
+const CapacitorTable = ({ setCapacitor, capacitor, numberOfBands, language }: CapacitorTableProps) => {
 	const setDigit1 = (c: Digit) => () => {
 		setCapacitor({ ...capacitor, digit1: c })
 	}
@@ -136,11 +163,22 @@ const CapacitorTable = ({ setCapacitor, capacitor, numberOfBands }: CapacitorTab
 
 	return (
 		<div className="columns">
-			<ValuesColumn values={digitValues} callback={setDigit1} selected={capacitor.digit1} />
-			<ValuesColumn values={digitValues} callback={setDigit2} selected={capacitor.digit2} />
-			<ValuesColumn values={capacitorMultiplierValues} superscript callback={setMultiplier} selected={capacitor.multiplier} columnClassName="multiplierColumn" />
-			{numberOfBands >= 5 ? <ValuesColumn values={toleranceValues} callback={setTolerance} selected={capacitor.tolerance} /> : <></>}
-			{numberOfBands >= 4 ? <ValuesColumn values={voltageRatings} callback={setVoltageRating} selected={capacitor.voltageRating} /> : <></>}
+			<ValuesColumn title={translate(language, 'digit1')} values={digitValues} callback={setDigit1} selected={capacitor.digit1} />
+			<ValuesColumn title={translate(language, 'digit2')} values={digitValues} callback={setDigit2} selected={capacitor.digit2} />
+			<ValuesColumn
+				title={translate(language, 'multiplier')}
+				values={capacitorMultiplierValues}
+				superscript
+				callback={setMultiplier}
+				selected={capacitor.multiplier}
+				columnClassName="multiplierColumn"
+			/>
+			{numberOfBands >= 5 ? <ValuesColumn title={translate(language, 'tolerance')} values={toleranceValues} callback={setTolerance} selected={capacitor.tolerance} /> : <></>}
+			{numberOfBands >= 4 ? (
+				<ValuesColumn title={translate(language, 'voltage')} values={voltageRatings} callback={setVoltageRating} selected={capacitor.voltageRating} />
+			) : (
+				<></>
+			)}
 		</div>
 	)
 }
@@ -150,12 +188,14 @@ type ValuesColumnProps<T> = {
 	superscript?: boolean
 	callback: (c: T) => () => void
 	selected: T
+	title: string
 	columnClassName?: string
 }
 
-const ValuesColumn = <T extends string>({ values, superscript, callback, selected, columnClassName }: ValuesColumnProps<T>) => {
+const ValuesColumn = <T extends string>({ values, superscript, callback, selected, columnClassName, title }: ValuesColumnProps<T>) => {
 	return (
 		<div className={'valuesColumn' + ' ' + (columnClassName ?? '')}>
+			<div className="columnTitle">{title}</div>
 			{values.map((v, i) =>
 				v !== null ? (
 					<div className={v[0] + ' valueCell ' + (selected === v[0] ? 'selected' : '')} key={i} onClick={callback(v[0])}>

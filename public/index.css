@@ -133,6 +133,7 @@ rect {
 }
 
 .valuesColumn {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 0;
@@ -141,6 +142,20 @@ rect {
 
 .valuesColumn:hover {
 	opacity: 0.9;
+}
+
+.columnTitle {
+	position: absolute;
+	top: -0.8rem;
+	left: -67px;
+	width: 200px;
+	text-align: center;
+	opacity: 0;
+	font-size: 0.8rem;
+}
+
+.valuesColumn:hover .columnTitle {
+	opacity: 0.5;
 }
 
 .valueCell {
