@@ -1,60 +1,27 @@
 <!doctype html>
-<html lang="sr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" type="text/css" href="index.css" />
-		<title>Kalkulator otpornosti</title>
-		<meta name="description" content="Kalkulator otpornosti otpornika na osnovu prstenastih oznaka" />
-		<meta name="author" content="Nikola Ubavić" />
-		<link rel="canonical" href="https://ubavic.rs/om/" />
-		<meta property="og:type" content="website" />
-		<meta property="og:image" content="opengraph.png" />
-		<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png" />
-		<meta name="theme-color" content="#ffffff" />
-	</head>
-	<body>
-		<h1>Kalkulator oznaka</h1>
-		<div id="root"></div>
-		<details>
-			<summary>O otpornosti i otpornicima</summary>
-			<p>
-				Uzimajući u obzir da u svim električnim uređajima struja vrši rad, deluje pomalo neobično da je najčešća komponenta u tim istim uređajima zapravo <em>otpornik</em>,
-				komponenta koja na neki način "usporava" električnu struju. Tačnije, otpornik je komponenta sa dva izvoda koja ima određenu <em>električnu otpornost</em>
-				osobinu protivljenja kretanju struje kroz komponentu kada se na izvode postavi razlika potencijala - napon. Električna otpornost predstavlja količnik primenjenog napona
-				i struje koja protiče kroz komponentu. Meri se u Omima (Ω), jedinici koja nozi naziv po nemačkom fizičaru Georgu Omu.
-			</p>
-			<p>
-				Kretanjem struje kroz otpornik gubi se potencijalna energija elektrona (tj. dolazi do pada napona), pretvaranjem te energije u toplotnu energiju molekula otpornika. Ova
-				osobina se može iskoristiti na razne načine u električnim kolima: struja koja protiče kroz kolo se može ograničiti, signali se mogu smanjiti, naponi se mogu podeliti,
-				itd... Stoga je važno znati za svaki pojedinačan otpornik koliku tačnu otpornost poseduje, ali i kako se ta otpornost menja u zavisnosti od temperature otpornika.
-				Navedene vrednosti zavise od osobina materijala od koje je otpornik izrađen i samog načina izrade, ali i od varijacija koje se ne mogu kontrolisati.
-			</p>
-			<p>
-				Otpornost svakog objekta, pa tako i otpornika, može se izmeriti pomoću <em>ommetra</em>, ali često je korisno znati tu otpornost i pregledom samog otpornika. Tako,
-				otpor komponente smeštene u uređaj se ne može precizno izmeriti ako se ta komponenta ne ukloni (razlemi) iz uređaja. Stoga na otpornicima se postavljaju razne oznake
-				koje označavaju njegovu otpornost. Na cilindričnim otpornicima, otpornost se obeležava sa tri ili više prstena različitih boja. Ova aplikacija omogućava korisniku da
-				dešifruje ove oznake birajući boje.
-			</p>
-			<p>
-				Kod otpornika sa tri prstena, prva dva prstena označavaju decimale, dok treći prsten označava množitelj. Greška pri izradi kod ovakvih otpornika nije mala i može se
-				smatrati da je otpornost i do 20% veća ili manja od one označene. Kod otpornika sa četiri oznake, prve tri oznake označavaju isto kao i kod otpornika sa tri oznake, a
-				četvrta oznaka predstavlja toleranciju na opisanu grešku. Kod otpornika sa pet oznaka, prve tri oznake predstavljaju decimale dok su četvrta i peta redom množilac i
-				tolerancija. Na kraju, kod otpornika sa šest oznaka, šesta oznaka predstavlja promenu otpornosti sa promenom temperature i izražava se u milionitim delovima (<em
-					>parts per million</em
-				>) Oma po stepenu Celzijusa.
-			</p>
-			<p>
-				Otpornik se uvek čita od one oznake koja je bliža jednom od izvoda. Ako su oznake simetrično poređane na otporniku, tada na otporniku verovatno postoje srebrna ili
-				zlatna oznaka za koje znamo da ne predstavljaju cifru. Sam otpornik nije polarisan, i može se u kolu smestiti u bilo kojoj orijentaciji.
-			</p>
-		</details>
-		
-		<script type="module" src="/src/main.tsx"></script>
-		<footer>
-			<a href="./index_en.html">English version</a> &bull;
-			<a href="https://ubavic.rs">Nikola Ubavić</a> &bull; 2023&nbsp;-&nbsp;2025 &bull;
-			<a href="https://github.com/ubavic/om">GitHub</a>
-		</footer>
-	</body>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="index.css" />
+	<title>Color code calculator</title>
+	<meta name="description" content="Resistance and induction calculator" />
+	<meta name="author" content="Nikola Ubavić" />
+	<link rel="canonical" href="https://ubavic.rs/om/" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="opengraph.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon32.png" />
+	<meta name="theme-color" content="#ffffff" />
+</head>
+
+<body>
+	<div id="root"></div>
+	<script type="module" src="/src/main.tsx"></script>
+	<footer>
+		<a href="https://ubavic.rs">Nikola Ubavić</a> &bull; 2023&nbsp;-&nbsp;2025 &bull;
+		<a href="https://github.com/ubavic/om">GitHub</a>
+	</footer>
+</body>
+
 </html>

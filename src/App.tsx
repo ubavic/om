@@ -2,6 +2,8 @@ import { Inductor, InductorMultiplier, InductorTolerance, Mode, NumberOfBands, R
 import { InductorPicture, ResistorPicture } from './Resistor'
 import { InductorTable, ResistorTable } from './Table'
 import { InductorValue, ResistorValue } from './Value'
+import { Language, translate } from './lang'
+import { LanguageSelector } from './LanguageSelector'
 import { ModeSelector } from './ModeSelector'
 import { NumberOfBandsSelector } from './NumberOfBandsSelector'
 import { useState } from 'react'
@@ -9,6 +11,7 @@ import { useState } from 'react'
 const App = () => {
 	type Component = Resistor | Inductor
 
+	const [language, setLanguage] = useState('English' as Language)
 	const [mode, setMode] = useState('Resistor' as Mode)
 	const [numberOfBands, setNumberOfBands] = useState(4 as NumberOfBands)
 	const [component, setComponent] = useState({
@@ -93,7 +96,9 @@ const App = () => {
 
 	return (
 		<>
-			<ModeSelector mode={mode} setMode={setModeWrapper} />
+			<LanguageSelector language={language} setLanguage={setLanguage} />
+			<h1>{translate(language, 'title')}</h1>
+			<ModeSelector mode={mode} setMode={setModeWrapper} language={language} />
 			<NumberOfBandsSelector mode={mode} numberOfBands={numberOfBands} setNumberOfBands={setNumberOfBands} />
 			{mode == 'Resistor' ? (
 				<>

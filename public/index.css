@@ -26,11 +26,29 @@ body {
 h1 {
 	text-align: center;
 	font-variant: small-caps;
+	font-size: 3rem;
 }
 
 a,
 a:visited {
 	color: #335;
+}
+
+#languageSelector {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	justify-content: flex-end;
+	font-weight: bold;
+	font-size: 1.2rem;
+	user-select: none;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+#languageSelector .option {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
 
 #bandsSelector {
@@ -168,19 +186,10 @@ p {
 	padding: 0.5rem;
 }
 
-details {
-	margin: 2rem auto;
-	max-width: 28rem;
-	background-color: #f3f0e9;
-	padding: 0.5rem;
-	border-radius: 2px;
-	border: 1px solid #b69f6b;
-}
-
 footer {
 	text-align: center;
 	font-size: 0.8rem;
-	margin-bottom: 2rem;
+	margin: 3rem 0;
 }
 
 .Black {
@@ -232,6 +241,10 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
+	h1 {
+		font-size: 2rem;
+	}
+
 	.marks {
 		display: none;
 	}
@@ -313,11 +326,6 @@ footer {
 		--background: #333;
 		--foreground: #f0f0f0;
 		--Black: #000;
-	}
-
-	details {
-		background-color: #2c2b27;
-		border: 1px solid #cfc7b5;
 	}
 
 	#bandsSelector > .selectedBands {
