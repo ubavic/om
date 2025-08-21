@@ -1,5 +1,15 @@
-import { Inductor, NumberOfBands, Resistor } from './types'
-import { digitValues, inductorMultiplierValues, inductorToleranceValues, multiplierValues, temperatureCoefficientValues, toleranceValues } from './data'
+import { Capacitor, Inductor, NumberOfBands, Resistor } from './types'
+import {
+	capacitorMultiplierValues,
+	capacitorToleranceValues,
+	digitValues,
+	getVoltageRatingsValues,
+	inductorMultiplierValues,
+	inductorToleranceValues,
+	multiplierValues,
+	temperatureCoefficientValues,
+	toleranceValues,
+} from './data'
 
 const nw = { whiteSpace: 'nowrap' }
 
@@ -69,6 +79,38 @@ const InductorValue = ({ inductor }: InductorValueProps) => {
 	)
 }
 
+type CapacitorValueProps = {
+	capacitor: Capacitor
+	numberOfBands: NumberOfBands
+}
+
+const CapacitorValue = ({ capacitor, numberOfBands }: CapacitorValueProps) => {
+	const digits = 10 * getValue(capacitor.digit1, digitValues) + getValue(capacitor.digit2, digitValues)
+	const tolerance = getValue(capacitor.tolerance, capacitorToleranceValues)
+
+	const uHenryValue = digits * 10 ** getValue(capacitor.multiplier, capacitorMultiplierValues)
+	const [value, prefix] = getPrefix(uHenryValue / 1000000000000)
+
+	const [leftEnd, rightEnd] = getInterval(uHenryValue, tolerance)
+
+	const voltageRating = getValue(capacitor.voltageRating, getVoltageRatingsValues(capacitor.type))
+
+	return (
+		<>
+			<div id="value">
+				<span style={nw}>
+					{value}
+					{prefix}F
+				</span>{' '}
+				<span style={nw}>± {tolerance}%</span> {numberOfBands >= 4 ? <span style={nw}>{voltageRating}V</span> : <></>}
+			</div>
+			<div id="valueSpan">
+				{leftEnd}pF ≤ C ≤ {rightEnd}pF
+			</div>
+		</>
+	)
+}
+
 const getValue = <T,>(value: T, values: ([T, number] | null)[]): number => {
 	for (const v of values) {
 		if (v !== null && v[0] === value) {
@@ -83,22 +125,28 @@ const getPrefix = (value: number): [number, string] => {
 	let prefix = ''
 
 	if (value < 1) {
-		if (value < 0.001) {
-			value *= 1000000
+		if (value < 0.000_000_001) {
+			value *= 1_000_000_000_000
+			prefix = 'p'
+		} else if (value < 0.000_001) {
+			value *= 1_000_000_000
+			prefix = 'n'
+		} else if (value < 0.001) {
+			value *= 1_000_000
 			prefix = 'μ'
 		} else {
 			value *= 1000
 			prefix = 'm'
 		}
 	} else if (value >= 1000) {
-		if (value < 1000000) {
-			value /= 1000
+		if (value < 1_000_000) {
+			value /= 1_000
 			prefix = 'k'
-		} else if (value < 1000000000) {
-			value /= 1000000
+		} else if (value < 1_000_000_000) {
+			value /= 1_000_000
 			prefix = 'M'
 		} else {
-			value /= 1000000000
+			value /= 1_000_000_000
 			prefix = 'G'
 		}
 	}
@@ -125,4 +173,4 @@ const getInterval = (value: number, tolerance: number): [string, string] => {
 	return [leftEnd.toLocaleString('en-US'), rightEnd.toLocaleString('en-US')]
 }
 
-export { ResistorValue, InductorValue }
+export { ResistorValue, InductorValue, CapacitorValue }

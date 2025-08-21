@@ -26,6 +26,9 @@ const ModeSelector = ({ setMode, mode, language }: ModeSelectorProps) => {
 			<div onClick={set('Inductor')} className={selected('Inductor')}>
 				{translate(language, 'inductor')}
 			</div>
+			<div onClick={set('Capacitor')} className={selected('Capacitor')}>
+				{translate(language, 'capacitor')}
+			</div>
 		</div>
 	)
 }

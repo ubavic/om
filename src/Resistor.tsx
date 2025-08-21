@@ -1,4 +1,4 @@
-import { Color, Inductor, NumberOfBands, Resistor } from './types'
+import { Capacitor, Color, Inductor, NumberOfBands, Resistor } from './types'
 
 type ResistorProps = {
 	resistor: Resistor
@@ -76,6 +76,44 @@ const InductorPicture = ({ numberOfBands, inductor }: InductorProps) => {
 	)
 }
 
+type CapacitorProps = {
+	capacitor: Capacitor
+	numberOfBands: NumberOfBands
+}
+
+const CapacitorPicture = ({ numberOfBands, capacitor }: CapacitorProps) => {
+	return (
+		<div id="resistorContainer">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 220">
+				<defs>
+					<linearGradient id="gradientGold" gradientUnits="userSpaceOnUse" x1="500" y1="250" x2="500" y2="0">
+						<stop style={{ stopColor: '#9f7928', stopOpacity: 1 }} offset="0" />
+						<stop style={{ stopColor: '#ffe054', stopOpacity: 1 }} offset="1" />
+					</linearGradient>
+					<linearGradient id="gradientSilver" gradientUnits="userSpaceOnUse" x1="500" y1="200" x2="500" y2="0">
+						<stop style={{ stopColor: '#aaaaaf', stopOpacity: 1 }} offset="0" />
+						<stop style={{ stopColor: '#eee', stopOpacity: 1 }} offset="1" />
+					</linearGradient>
+					<clipPath clipPathUnits="userSpaceOnUse" id="clipPath">
+						<path d="m 380 0 h 140 c 80 0 80 30 80 110 c 0 70 0 110 -80 110 h -140 c -80 0 -80 -30 -80 -110 c 0 -70 0 -110 80 -110 z" fill="#000" />
+					</clipPath>
+				</defs>
+				<rect fill="#888" id="rect1" width="200" height="10" x="600" y="80" rx="10" ry="10" />
+				<rect fill="#888" id="rect1" width="200" height="10" x="600" y="146" rx="10" ry="10" />
+				<g clipPath="url(#clipPath)">
+					<rect fill="#ebc89aff" width="710" height="220" x="140" y="0" />
+					<Band color={capacitor.digit1} x={300} wide />
+					<Band color={capacitor.digit2} x={360} wide />
+					<Band color={capacitor.multiplier} x={420} wide />
+					{numberOfBands == 5 ? <Band color={capacitor.tolerance} x={480} wide /> : <></>}
+					{numberOfBands == 4 ? <Band color={capacitor.voltageRating} x={480} wide /> : <></>}
+					{numberOfBands >= 4 ? <Band color={capacitor.voltageRating} x={540} wide /> : <></>}
+				</g>
+			</svg>
+		</div>
+	)
+}
+
 type BandProps = {
 	color: Color
 	x: number
@@ -105,4 +143,4 @@ const ColorValue = (color: Color): string => {
 	}
 }
 
-export { ResistorPicture, InductorPicture }
+export { ResistorPicture, InductorPicture, CapacitorPicture }

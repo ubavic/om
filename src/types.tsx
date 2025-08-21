@@ -1,4 +1,4 @@
-type Mode = 'Resistor' | 'Inductor'
+type Mode = 'Resistor' | 'Inductor' | 'Capacitor'
 
 type Color = 'Black' | 'Brown' | 'Red' | 'Orange' | 'Yellow' | 'Green' | 'Blue' | 'Violet' | 'Grey' | 'White' | 'Gold' | 'Silver'
 
@@ -18,6 +18,14 @@ type InductorMultiplier = Without<'Violet' | 'Grey' | 'White'>
 
 type InductorTolerance = Without<'Green' | 'Blue' | 'Violet' | 'Grey' | 'White'>
 
+type CapacitorMultiplier = Without<'Violet'>
+
+type CapacitorTolerance = Without<'Blue' | 'Violet'>
+
+type CapacitorVoltageRating = Without<'Silver'>
+
+type CapacitorTemperatureCoefficient = Without<'Black' | 'Grey' | 'White' | 'Gold' | 'Silver'>
+
 type Resistor = {
 	digit1: Digit
 	digit2: Digit
@@ -34,4 +42,34 @@ type Inductor = {
 	tolerance: InductorTolerance
 }
 
-export type { Mode, Resistor, Inductor, NumberOfBands, Color, Digit, ResistorTolerance, TemperatureCoefficient, ResistorMultiplier, InductorMultiplier, InductorTolerance }
+type CapacitorType = 'J' | 'K' | 'L' | 'M' | 'N'
+
+type Capacitor = {
+	type: CapacitorType
+	digit1: Digit
+	digit2: Digit
+	multiplier: CapacitorMultiplier
+	tolerance: CapacitorTolerance
+	temperatureCoefficient: CapacitorTemperatureCoefficient
+	voltageRating: CapacitorVoltageRating
+}
+
+export type {
+	Mode,
+	Resistor,
+	Inductor,
+	NumberOfBands,
+	Color,
+	Digit,
+	ResistorTolerance,
+	TemperatureCoefficient,
+	ResistorMultiplier,
+	InductorMultiplier,
+	InductorTolerance,
+	CapacitorType,
+	Capacitor,
+	CapacitorMultiplier,
+	CapacitorTolerance,
+	CapacitorVoltageRating,
+	CapacitorTemperatureCoefficient,
+}

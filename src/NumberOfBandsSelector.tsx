@@ -19,7 +19,7 @@ const NumberOfBandsSelector = ({ mode, numberOfBands, setNumberOfBands }: BandsS
 
 	return (
 		<div id="bandsSelector">
-			{mode == 'Resistor' && (
+			{(mode == 'Resistor' || mode == 'Capacitor') && (
 				<div onClick={set(3)} className={selected(3)}>
 					3
 				</div>

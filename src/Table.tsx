@@ -1,5 +1,29 @@
-import { Digit, Inductor, InductorMultiplier, InductorTolerance, NumberOfBands, Resistor, ResistorMultiplier, ResistorTolerance, TemperatureCoefficient } from './types'
-import { digitValues, inductorMultiplierValues, inductorToleranceValues, multiplierValues, temperatureCoefficientValues, toleranceValues } from './data'
+import {
+	Capacitor,
+	CapacitorMultiplier,
+	CapacitorTolerance,
+	CapacitorVoltageRating,
+	Digit,
+	Inductor,
+	InductorMultiplier,
+	InductorTolerance,
+	NumberOfBands,
+	Resistor,
+	ResistorMultiplier,
+	ResistorTolerance,
+	TemperatureCoefficient,
+} from './types'
+import {
+	capacitorMultiplierValues,
+	capacitorToleranceValues,
+	digitValues,
+	getVoltageRatingsValues,
+	inductorMultiplierValues,
+	inductorToleranceValues,
+	multiplierValues,
+	temperatureCoefficientValues,
+	toleranceValues,
+} from './data'
 
 type ResistorTableProps = {
 	numberOfBands: NumberOfBands
@@ -76,6 +100,46 @@ const InductorTable = ({ setInductor, inductor }: InductorTableProps) => {
 	)
 }
 
+type CapacitorTableProps = {
+	setCapacitor: React.Dispatch<React.SetStateAction<Capacitor>>
+	capacitor: Capacitor
+	numberOfBands: NumberOfBands
+}
+
+const CapacitorTable = ({ setCapacitor, capacitor, numberOfBands }: CapacitorTableProps) => {
+	const setDigit1 = (c: Digit) => () => {
+		setCapacitor({ ...capacitor, digit1: c })
+	}
+
+	const setDigit2 = (c: Digit) => () => {
+		setCapacitor({ ...capacitor, digit2: c })
+	}
+
+	const setMultiplier = (c: CapacitorMultiplier) => () => {
+		setCapacitor({ ...capacitor, multiplier: c })
+	}
+
+	const setTolerance = (c: CapacitorTolerance) => () => {
+		setCapacitor({ ...capacitor, tolerance: c })
+	}
+
+	const setVoltageRating = (c: CapacitorVoltageRating) => () => {
+		setCapacitor({ ...capacitor, voltageRating: c })
+	}
+
+	const voltageRatings = getVoltageRatingsValues(capacitor.type)
+
+	return (
+		<div className="columns">
+			<ValuesColumn values={digitValues} callback={setDigit1} selected={capacitor.digit1} />
+			<ValuesColumn values={digitValues} callback={setDigit2} selected={capacitor.digit2} />
+			<ValuesColumn values={capacitorMultiplierValues} superscript callback={setMultiplier} selected={capacitor.multiplier} columnClassName="multiplierColumn" />
+			{numberOfBands >= 5 ? <ValuesColumn values={capacitorToleranceValues} callback={setTolerance} selected={capacitor.tolerance} /> : <></>}
+			{numberOfBands >= 4 ? <ValuesColumn values={voltageRatings} callback={setVoltageRating} selected={capacitor.voltageRating} /> : <></>}
+		</div>
+	)
+}
+
 type ValuesColumnProps<T> = {
 	values: ([T, number] | null)[]
 	superscript?: boolean
@@ -131,4 +195,4 @@ const TableValue = ({ value, superscript }: TableValueProps) => {
 	)
 }
 
-export { InductorTable, ResistorTable }
+export { InductorTable, ResistorTable, CapacitorTable }
