@@ -3,6 +3,7 @@ import {
 	CapacitorMultiplier,
 	CapacitorTolerance,
 	CapacitorType,
+	Component,
 	Inductor,
 	InductorMultiplier,
 	InductorTolerance,
@@ -22,8 +23,6 @@ import { NumberOfBandsSelector } from './NumberOfBandsSelector'
 import { useState } from 'react'
 
 const App = () => {
-	type Component = Resistor | Inductor | Capacitor
-
 	const [language, setLanguage] = useState('English' as Language)
 	const [mode, setMode] = useState('Resistor' as Mode)
 	const [numberOfBands, setNumberOfBands] = useState(4 as NumberOfBands)

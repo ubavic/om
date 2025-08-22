@@ -54,6 +54,8 @@ type Capacitor = {
 	voltageRating: CapacitorVoltageRating
 }
 
+type Component = Resistor | Inductor | Capacitor
+
 export type {
 	Mode,
 	Resistor,
@@ -72,4 +74,5 @@ export type {
 	CapacitorTolerance,
 	CapacitorVoltageRating,
 	CapacitorTemperatureCoefficient,
+	Component,
 }
