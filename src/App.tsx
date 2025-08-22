@@ -16,6 +16,7 @@ import { CapacitorPicture, InductorPicture, ResistorPicture } from './Resistor'
 import { CapacitorTable, InductorTable, ResistorTable } from './Table'
 import { CapacitorValue, InductorValue, ResistorValue } from './Value'
 import { Language, translate } from './lang'
+import { parseComponent, parseLanguage, parseMode, parseNumberOfBands, setComponentUrlParams, useParam } from './urlParams'
 import { CapacitorTypeSelector } from './CapacitorTypeSelector'
 import { LanguageSelector } from './LanguageSelector'
 import { ModeSelector } from './ModeSelector'
@@ -23,17 +24,15 @@ import { NumberOfBandsSelector } from './NumberOfBandsSelector'
 import { useState } from 'react'
 
 const App = () => {
-	const [language, setLanguage] = useState('English' as Language)
-	const [mode, setMode] = useState('Resistor' as Mode)
-	const [numberOfBands, setNumberOfBands] = useState(4 as NumberOfBands)
-	const [component, setComponent] = useState({
-		digit1: 'Red',
-		digit2: 'Black',
-		digit3: 'Black',
-		multiplier: 'Red',
-		tolerance: 'Gold',
-		temperatureCoefficient: 'Yellow',
-	} as Component)
+	const [language, setLanguage] = useParam<Language>('lang', parseLanguage)
+	const [mode, setMode] = useParam<Mode>('mode', parseMode)
+	const [numberOfBands, setNumberOfBands] = useParam<NumberOfBands>('bands', parseNumberOfBands)
+	const [component, _setComponent] = useState(parseComponent(mode))
+
+	const setComponent = (c: Component) => {
+		setComponentUrlParams(c)
+		_setComponent(c)
+	}
 
 	const setModeWrapper = (m: Mode) => {
 		if (m == mode) return
