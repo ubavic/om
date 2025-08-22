@@ -29,7 +29,7 @@ const ResistorValue = ({ resistor, numberOfBands }: ResistorValueProps) => {
 	const tolerance = numberOfBands == 3 ? 20 : getValue(resistor.tolerance, toleranceValues)
 
 	const ohmValue = digits * 10 ** getValue(resistor.multiplier, multiplierValues)
-	const tc = numberOfBands == 6 ? <>{getValue(resistor.tc, temperatureCoefficientValues)}ppm/°C</> : ''
+	const tc = numberOfBands == 6 ? <>{getValue(resistor.temperatureCoefficient, temperatureCoefficientValues)}ppm/°C</> : ''
 
 	const [value, prefix] = getPrefix(ohmValue)
 

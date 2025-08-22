@@ -33,7 +33,7 @@ const ResistorPicture = ({ resistor, numberOfBands }: ResistorProps) => {
 					{numberOfBands >= 5 ? <Band color={resistor.digit3} x={411} /> : <></>}
 					<Band color={resistor.multiplier} x={485} />
 					{numberOfBands >= 4 ? <Band color={resistor.tolerance} x={631} /> : <></>}
-					{numberOfBands == 6 ? <Band color={resistor.tc} x={747} /> : <></>}
+					{numberOfBands == 6 ? <Band color={resistor.temperatureCoefficient} x={747} /> : <></>}
 				</g>
 			</svg>
 		</div>

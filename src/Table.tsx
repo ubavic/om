@@ -56,7 +56,7 @@ const ResistorTable = ({ setResistor, numberOfBands, resistor, language }: Resis
 	}
 
 	const setTemperatureCoefficient = (c: TemperatureCoefficient) => () => {
-		setResistor({ ...resistor, tc: c })
+		setResistor({ ...resistor, temperatureCoefficient: c })
 	}
 
 	return (
@@ -78,7 +78,7 @@ const ResistorTable = ({ setResistor, numberOfBands, resistor, language }: Resis
 					title={translate(language, 'temperatureCoefficient')}
 					values={temperatureCoefficientValues}
 					callback={setTemperatureCoefficient}
-					selected={resistor.tc}
+					selected={resistor.temperatureCoefficient}
 				/>
 			) : (
 				<></>

@@ -32,7 +32,7 @@ type Resistor = {
 	digit3: Digit
 	multiplier: ResistorMultiplier
 	tolerance: ResistorTolerance
-	tc: TemperatureCoefficient
+	temperatureCoefficient: TemperatureCoefficient
 }
 
 type Inductor = {

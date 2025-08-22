@@ -32,7 +32,7 @@ const App = () => {
 		digit3: 'Black',
 		multiplier: 'Red',
 		tolerance: 'Gold',
-		tc: 'Yellow',
+		temperatureCoefficient: 'Yellow',
 	} as Component)
 
 	const setModeWrapper = (m: Mode) => {
@@ -65,7 +65,7 @@ const App = () => {
 					digit3: 'Black',
 					multiplier: component.multiplier,
 					tolerance: tolerance,
-					tc: 'Yellow',
+					temperatureCoefficient: 'Yellow',
 				}
 
 				setComponent(resistor)
