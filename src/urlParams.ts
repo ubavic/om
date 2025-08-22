@@ -57,7 +57,7 @@ const parseComponent = (mode: Mode): Component => {
 	const assertType = <T extends Color>(value: Color | null, values: ([T, number] | null)[], defaultValue: T): T => {
 		if (value === null) return defaultValue
 
-		const found = values.filter(v => v !== null).filter(v => v[0] == value).length
+		const found = values.filter(v => (v === null ? false : v[0] == value)).length
 		if (found > 0) {
 			return value as T
 		}
