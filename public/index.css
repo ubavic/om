@@ -59,6 +59,7 @@ a:visited {
 	font-weight: bold;
 	font-size: 1.2rem;
 	user-select: none;
+	margin: 1rem 0;
 }
 
 #modeSelector {
@@ -69,7 +70,7 @@ a:visited {
 	font-weight: bold;
 	font-size: 1.2rem;
 	user-select: none;
-	margin-bottom: 1rem;
+	margin: 1rem 0;
 }
 
 #capacitorTypeSelector {
@@ -80,8 +81,7 @@ a:visited {
 	font-weight: bold;
 	font-size: 1.2rem;
 	user-select: none;
-	margin-bottom: 1rem;
-	margin-top: 1rem;
+	margin: 1rem 0;
 }
 
 .option {
@@ -272,6 +272,10 @@ footer {
 		font-size: 2rem;
 	}
 
+	#modeSelector {
+		gap: 1rem;
+	}
+
 	.marks {
 		display: none;
 	}
@@ -318,6 +322,10 @@ footer {
 	#value {
 		font-size: 1.2rem;
 	}
+
+	#modeSelector {
+		gap: 0.2rem;
+	}
 }
 
 @media screen and (max-height: 730px) {
@@ -339,6 +347,17 @@ footer {
 @media screen and (max-height: 650px) {
 	.valueCell {
 		height: 1.7rem;
+	}
+
+	#bandsSelector,
+	#modeSelector,
+	#capacitorTypeSelector {
+		font-size: 1rem;
+		margin: 0.2rem 0;
+	}
+
+	.option {
+		padding: 0.2rem 0.3rem 0.1rem;
 	}
 }
 
