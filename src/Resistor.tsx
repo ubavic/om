@@ -34,6 +34,7 @@ const ResistorPicture = ({ resistor, numberOfBands }: ResistorProps) => {
 					<Band color={resistor.multiplier} x={485} />
 					{numberOfBands >= 4 ? <Band color={resistor.tolerance} x={631} /> : <></>}
 					{numberOfBands == 6 ? <Band color={resistor.temperatureCoefficient} x={747} /> : <></>}
+					<rect fill="#0001" id="rect1" width="1000" height="300" x="0" y="116" />
 				</g>
 			</svg>
 		</div>
@@ -70,6 +71,7 @@ const InductorPicture = ({ numberOfBands, inductor }: InductorProps) => {
 					<Band color={inductor.digit2} x={464} />
 					<Band color={inductor.multiplier} x={538} />
 					<Band color={inductor.tolerance} x={612} />
+					<rect fill="#0001" id="rect1" width="1000" height="300" x="0" y="116" />
 				</g>
 			</svg>
 		</div>
@@ -101,13 +103,13 @@ const CapacitorPicture = ({ numberOfBands, capacitor }: CapacitorProps) => {
 				<rect fill="#888" id="rect1" width="220" height="10" x="590" y="50" />
 				<rect fill="#888" id="rect1" width="220" height="10" x="590" y="166" />
 				<g clipPath="url(#clipPath)">
-					<rect fill="#ebc89aff" width="710" height="220" x="140" y="0" />
 					<Band color={capacitor.digit1} x={300} wide />
 					<Band color={capacitor.digit2} x={360} wide />
 					<Band color={capacitor.multiplier} x={420} wide />
 					{numberOfBands == 5 ? <Band color={capacitor.tolerance} x={480} wide /> : <></>}
 					{numberOfBands == 4 ? <Band color={capacitor.voltageRating} x={480} wide /> : <></>}
 					{numberOfBands >= 4 ? <Band color={capacitor.voltageRating} x={540} wide /> : <></>}
+					<rect fill="#0001" id="rect1" width="1000" height="300" x="0" y="116" />
 				</g>
 			</svg>
 		</div>
