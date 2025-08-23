@@ -25,7 +25,7 @@ const ResistorPicture = ({ resistor, numberOfBands }: ResistorProps) => {
 						/>
 					</clipPath>
 				</defs>
-				<rect fill="#888" id="rect1" width="960" height="10" x="20" y="113" rx="10" ry="10" />
+				<rect fill="#888" id="rect1" width="960" height="10" x="20" y="113" />
 				<g clipPath="url(#clipPath)">
 					<rect fill="#ebcba5" width="710" height="220" x="140" y="0" />
 					<Band color={resistor.digit1} x={223} />
@@ -62,7 +62,7 @@ const InductorPicture = ({ numberOfBands, inductor }: InductorProps) => {
 						<path d="m 240 10 h 520 c 80 0 80 30 80 100 c 0 70 0 100 -80 100 h -520 c -80 0 -80 -30 -80 -100 c 0 -70 0 -100 80 -100 z" fill="#000" />
 					</clipPath>
 				</defs>
-				<rect fill="#888" id="rect1" width="960" height="10" x="20" y="113" rx="10" ry="10" />
+				<rect fill="#888" id="rect1" width="960" height="10" x="20" y="113" />
 				<g clipPath="url(#clipPath)">
 					<rect fill="#a5ebcd" width="710" height="220" x="140" y="0" />
 					{numberOfBands == 5 && <Band color={'Silver'} x={280} wide />}
@@ -98,8 +98,8 @@ const CapacitorPicture = ({ numberOfBands, capacitor }: CapacitorProps) => {
 						<path d="m 380 0 h 140 c 80 0 80 30 80 110 c 0 70 0 110 -80 110 h -140 c -80 0 -80 -30 -80 -110 c 0 -70 0 -110 80 -110 z" fill="#000" />
 					</clipPath>
 				</defs>
-				<rect fill="#888" id="rect1" width="200" height="10" x="600" y="80" rx="10" ry="10" />
-				<rect fill="#888" id="rect1" width="200" height="10" x="600" y="146" rx="10" ry="10" />
+				<rect fill="#888" id="rect1" width="220" height="10" x="590" y="50" />
+				<rect fill="#888" id="rect1" width="220" height="10" x="590" y="166" />
 				<g clipPath="url(#clipPath)">
 					<rect fill="#ebc89aff" width="710" height="220" x="140" y="0" />
 					<Band color={capacitor.digit1} x={300} wide />
