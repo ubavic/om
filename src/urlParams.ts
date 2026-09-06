@@ -1,7 +1,9 @@
 import { Capacitor, CapacitorType, Color, Component, Inductor, Mode, NumberOfBands, Resistor } from './types'
 import {
 	capacitorMultiplierValues,
+	capacitorSmallToleranceValues,
 	capacitorTemperatureCoefficientValues,
+	capacitorToleranceValues,
 	digitValues,
 	getVoltageRatingsValues,
 	inductorMultiplierValues,
@@ -102,9 +104,9 @@ const parseComponent = (mode: Mode): Component => {
 			const c: Capacitor = {
 				digit1: assertType(digit1, digitValues, 'Red'),
 				digit2: assertType(digit2, digitValues, 'Black'),
-				multiplier: assertType(tolerance, capacitorMultiplierValues, 'Gold'),
+				multiplier: assertType(multiplier, capacitorMultiplierValues, 'Gold'),
 				temperatureCoefficient: assertType(temperatureCoefficient, capacitorTemperatureCoefficientValues, 'Red'),
-				tolerance: assertType(tolerance, inductorToleranceValues, 'Gold'),
+				tolerance: assertType(tolerance, [...capacitorToleranceValues, ...capacitorSmallToleranceValues], 'Gold'),
 				voltageRating: assertType(voltageRating, getVoltageRatingsValues(capType), 'Gold'),
 				type: capType,
 			}
@@ -123,6 +125,7 @@ const setComponentUrlParams = (component: Component) => {
 	if ('tolerance' in component) url.searchParams.set('tol', component['tolerance' as keyof typeof component])
 	if ('temperatureCoefficient' in component) url.searchParams.set('tc', component['temperatureCoefficient' as keyof typeof component])
 	if ('voltageRating' in component) url.searchParams.set('v', component['voltageRating' as keyof typeof component])
+	if ('type' in component && 'voltageRating' in component) url.searchParams.set('cap_type', component.type)
 
 	window.history.replaceState({}, '', url)
 }
