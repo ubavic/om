@@ -1,4 +1,8 @@
 const getPrefix = (value: number): [number, string] => {
+	if (value === 0) {
+		return [0, '']
+	}
+
 	let prefix = ''
 
 	if (value < 1) {
