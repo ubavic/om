@@ -37,19 +37,22 @@ const getPrefix = (value: number): [number, string] => {
 	return [value, prefix]
 }
 
-const getInterval = (value: number, tolerance: number, absolute = false): [string, string] => {
-	let fractionDigits = 0
-	if (value < 1) {
-		fractionDigits = 4
-	} else if (value < 10) {
-		fractionDigits = 2
+const getFractionDigits = (delta: number): number => {
+	const abs = Math.abs(delta)
+	if (!Number.isFinite(abs) || abs === 0) {
+		return 0
 	}
 
-	let leftEnd = absolute ? value - tolerance : (1 - tolerance / 100) * value
-	leftEnd = parseFloat(leftEnd.toFixed(fractionDigits))
+	return Math.min(4, Math.max(0, 1 - Math.floor(Math.log10(abs))))
+}
 
-	let rightEnd = absolute ? value + tolerance : (1 + tolerance / 100) * value
-	rightEnd = parseFloat(rightEnd.toFixed(fractionDigits))
+const getInterval = (value: number, tolerance: number, absolute = false): [string, string] => {
+	const leftRaw = absolute ? value - tolerance : (value * (100 - tolerance)) / 100
+	const rightRaw = absolute ? value + tolerance : (value * (100 + tolerance)) / 100
+	const fractionDigits = getFractionDigits((rightRaw - leftRaw) / 2)
+
+	const leftEnd = parseFloat(leftRaw.toFixed(fractionDigits))
+	const rightEnd = parseFloat(rightRaw.toFixed(fractionDigits))
 
 	return [leftEnd.toLocaleString('en-US'), rightEnd.toLocaleString('en-US')]
 }
