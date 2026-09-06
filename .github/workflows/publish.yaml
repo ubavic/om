@@ -1,0 +1,63 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload site
+        uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download site
+        uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: public
+
+      - name: Prepare
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H new.ubavic.rs >> ~/.ssh/known_hosts
+
+      - name: Publish via SCP
+        env:
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          USER: ${{ secrets.USER }}
+        run: rsync -az --delete -e "ssh -p $SSH_PORT -o BatchMode=yes -o IdentitiesOnly=yes" public/ "$USER@new.ubavic.rs:/var/www/ubavic.rs/om/"
