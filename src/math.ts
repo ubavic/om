@@ -37,7 +37,7 @@ const getPrefix = (value: number): [number, string] => {
 	return [value, prefix]
 }
 
-const getInterval = (value: number, tolerance: number): [string, string] => {
+const getInterval = (value: number, tolerance: number, absolute = false): [string, string] => {
 	let fractionDigits = 0
 	if (value < 1) {
 		fractionDigits = 4
@@ -45,10 +45,10 @@ const getInterval = (value: number, tolerance: number): [string, string] => {
 		fractionDigits = 2
 	}
 
-	let leftEnd = (1 - tolerance / 100) * value
+	let leftEnd = absolute ? value - tolerance : (1 - tolerance / 100) * value
 	leftEnd = parseFloat(leftEnd.toFixed(fractionDigits))
 
-	let rightEnd = (1 + tolerance / 100) * value
+	let rightEnd = absolute ? value + tolerance : (1 + tolerance / 100) * value
 	rightEnd = parseFloat(rightEnd.toFixed(fractionDigits))
 
 	return [leftEnd.toLocaleString('en-US'), rightEnd.toLocaleString('en-US')]

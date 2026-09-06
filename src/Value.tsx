@@ -4,6 +4,7 @@ import {
 	digitValues,
 	getCapacitorToleranceValues,
 	getVoltageRatingsValues,
+	isSmallCapacitance,
 	inductorMultiplierValues,
 	inductorToleranceValues,
 	multiplierValues,
@@ -92,9 +93,10 @@ const CapacitorValue = ({ capacitor, numberOfBands }: CapacitorValueProps) => {
 	const toleranceValues = getCapacitorToleranceValues(pFaradValue)
 
 	const tolerance = getValue(capacitor.tolerance, toleranceValues)
+	const absoluteTolerance = isSmallCapacitance(pFaradValue)
 	const [value, prefix] = getPrefix(pFaradValue / 1000000000000)
 
-	const [leftEnd, rightEnd] = getInterval(pFaradValue, tolerance)
+	const [leftEnd, rightEnd] = getInterval(pFaradValue, tolerance, absoluteTolerance)
 
 	const voltageRating = getValue(capacitor.voltageRating, getVoltageRatingsValues(capacitor.type))
 
@@ -105,7 +107,7 @@ const CapacitorValue = ({ capacitor, numberOfBands }: CapacitorValueProps) => {
 					{value}
 					{prefix}F
 				</span>{' '}
-				<span style={nw}>± {tolerance}%</span> {numberOfBands >= 4 ? <span style={nw}>{voltageRating}V</span> : <></>}
+				<span style={nw}>± {tolerance}{absoluteTolerance ? 'pF' : '%'}</span> {numberOfBands >= 4 ? <span style={nw}>{voltageRating}V</span> : <></>}
 			</div>
 			<div id="valueSpan">
 				{leftEnd}pF ≤ C ≤ {rightEnd}pF
