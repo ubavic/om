@@ -41,7 +41,7 @@ const App = () => {
 
 		switch (m) {
 			case 'Resistor': {
-				let tolerance: ResistorTolerance = 'Brown'
+				let tolerance: ResistorTolerance
 				switch (component.tolerance) {
 					case 'Black':
 						tolerance = 'Brown'
@@ -77,7 +77,7 @@ const App = () => {
 					setNumberOfBands(5)
 				}
 
-				let multiplier: InductorMultiplier = 'Black'
+				let multiplier: InductorMultiplier
 				switch (component.multiplier) {
 					case 'Violet':
 					case 'Grey':
@@ -88,7 +88,7 @@ const App = () => {
 						multiplier = component.multiplier
 				}
 
-				let tolerance: InductorTolerance = 'Black'
+				let tolerance: InductorTolerance
 				switch (component.tolerance) {
 					case 'Green':
 					case 'Blue':
@@ -116,7 +116,7 @@ const App = () => {
 					setNumberOfBands(5)
 				}
 
-				let tolerance: CapacitorTolerance = 'Black'
+				let tolerance: CapacitorTolerance
 				switch (component.tolerance) {
 					case 'Blue':
 					case 'Violet':
@@ -131,7 +131,7 @@ const App = () => {
 					tolerance = 'Black'
 				}
 
-				let multiplier: CapacitorMultiplier = 'Black'
+				let multiplier: CapacitorMultiplier
 				switch (component.multiplier) {
 					case 'Violet':
 						multiplier = 'Blue'
