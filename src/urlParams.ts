@@ -29,13 +29,14 @@ const useParam = <T extends number | string>(key: string, parseValue: (param: st
 
 	useEffect(() => {
 		const onPopState = () => {
-			setValue(getParam())
+			const params = new URLSearchParams(window.location.search)
+			setValue(parseValue(params.get(key)))
 		}
 		window.addEventListener('popstate', onPopState)
 		return () => {
 			window.removeEventListener('popstate', onPopState)
 		}
-	}, [])
+	}, [key, parseValue])
 
 	return [value, setValue] as const
 }
