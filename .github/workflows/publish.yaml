@@ -46,18 +46,21 @@ jobs:
           name: site
           path: public
 
-      - name: Prepare
+      - name: Prepare SSH
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
           printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H new.ubavic.rs >> ~/.ssh/known_hosts
+          ssh-keyscan -p $SSH_PORT -H new.ubavic.rs >> ~/.ssh/known_hosts
 
-      - name: Publish via SCP
+      - name: Publish via rsync
         env:
           SSH_PORT: ${{ secrets.SSH_PORT }}
           USER: ${{ secrets.USER }}
-        run: rsync -az --delete -e "ssh -p $SSH_PORT -o BatchMode=yes -o IdentitiesOnly=yes" public/ "$USER@new.ubavic.rs:/var/www/ubavic.rs/om/"
+        run: |
+          rsync -az --delete \
+          -e "ssh -p $SSH_PORT -o BatchMode=yes -o IdentitiesOnly=yes" \
+          public/ "$USER@new.ubavic.rs:/var/www/ubavic.rs/om/"
